@@ -10,6 +10,12 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
+    "paths": {
+      "ngx-iugu": [
+        "dist/ngx-iugu/ngx-iugu",
+        "dist/ngx-iugu"
+      ]
+    },
     "target": "es2015",
     "module": "es2020",
     "lib": [
