@@ -1,16 +1,22 @@
-import { NgModule } from '@angular/core';
-import { NgxIuguComponent } from './ngx-iugu.component';
-
-
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { iuguCDN, IuguConfig, NgxIuguService } from './ngx-iugu.service';
 
 @NgModule({
-  declarations: [
-    NgxIuguComponent
-  ],
-  imports: [
-  ],
-  exports: [
-    NgxIuguComponent
-  ]
+  declarations: [],
+  imports: [],
+  exports: [],
 })
-export class NgxIuguModule { }
+export class NgxIuguModule {
+  static footRoot(config: IuguConfig): ModuleWithProviders<NgxIuguModule> {
+    return {
+      ngModule: NgxIuguModule,
+      providers: [
+        NgxIuguService,
+        {
+          provide: iuguCDN,
+          useValue: config,
+        },
+      ],
+    };
+  }
+}
