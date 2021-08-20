@@ -1,37 +1,3 @@
-export interface Iugu {
-  CreditCard: (
-    cardNumber: string | number,
-    cardExpirationMonth: string | number,
-    cardExpirationYear: string | number,
-    firstName: string,
-    surName: string,
-    securityCode: string | number
-  ) => any;
-  createPaymentToken: (paymentData: string, callback: (any: any) => any) => any;
-  getSessionId: () => any;
-  initializedFields: () => any;
-  setAccountID: (accountID: string) => any;
-  setTestMode: (testMode: boolean) => any;
-  setup: () => any;
-  utils: {
-    formatUUID: () => any;
-    getBrandByCreditCardNumber: (cardNumber: string | number) => string;
-    getFirstLastNameByFullName: () => any;
-    getMonthYearByFullExpiration: () => any;
-    keyOf: () => any;
-    validateAccountID: () => any;
-    validateCVV: (securityCode: string, cardFlag: string) => boolean;
-    validateCreditCardNumber: (cardNumber: string | number) => boolean;
-    validateExpiration: (
-      cardExpirationMonth: string | number,
-      cardExpirationYear: string | number
-    ) => boolean;
-    validateExpirationString: () => any;
-    validateFirstName: () => any;
-    validateLastName: () => any;
-  };
-}
-
 export interface IuguCreditCard {
   cardExpirationMonth: string | number;
   cardExpirationYear: string | number;
@@ -60,4 +26,10 @@ export interface IuguResponse {
     first_name?: string;
     last_name?: string;
   };
+}
+
+export interface IuguConfig {
+  accountID?: string;
+  CDN?: string;
+  testMode?: boolean;
 }
