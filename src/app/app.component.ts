@@ -1,31 +1,14 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgxIuguService } from 'projects/ngx-iugu/src/public-api';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'dd-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  title = 'dd-iugu';
-  creditCard!: FormGroup;
+export class AppComponent implements OnInit {
+  title = 'NGX Iugu Wrapper';
 
-  constructor(
-    private IuguService: NgxIuguService,
-    private formBuilder: FormBuilder
-  ) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.creditCard = this.formBuilder.group({
-      name: ['', Validators.required],
-      number: ['', Validators.required],
-      validate: ['', Validators.required],
-      security: ['', Validators.required],
-    });
-  }
-
-  submit() {
-    const creditCard = this.creditCard.getRawValue();
-  }
+  ngOnInit() {}
 }
