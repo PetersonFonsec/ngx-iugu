@@ -1,0 +1,93 @@
+<h1 *ngIf="token">Seu token {{ token }}</h1>
+
+<mat-card>
+  <form [formGroup]="creditCard" (submit)="submit()" class="form">
+    <div class="form_content">
+      <mat-form-field>
+        <input
+          name="fullName"
+          matInput
+          type="text"
+          placeholder="Nome do titular"
+          formControlName="fullName"
+        />
+        <mat-error
+          *ngIf="
+            creditCard?.get('fullName')?.errors?.required &&
+            creditCard?.get('fullName')?.touched
+          "
+        >
+          Campo Obrigatório
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          name="cardNumber"
+          mask="0000 0000 0000 0000"
+          matInput
+          type="tel"
+          placeholder="Numero do cartão"
+          formControlName="cardNumber"
+        />
+        <mat-error
+          *ngIf="
+            creditCard?.get('cardNumber')?.errors &&
+            creditCard?.get('cardNumber')?.touched
+          "
+        >
+          Campo Obrigatório
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          name="securityCode"
+          matInput
+          type="tel"
+          placeholder="CVV"
+          mask="0000"
+          formControlName="securityCode"
+          [validation]="false"
+        />
+        <mat-error
+          *ngIf="
+            creditCard?.get('securityCode')?.errors &&
+            creditCard?.get('securityCode')?.touched
+          "
+        >
+          Campo Obrigatório
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          name="validate"
+          matInput
+          mask="M0/00"
+          type="tel"
+          placeholder="MM/YY"
+          formControlName="validate"
+          [dropSpecialCharacters]="false"
+        />
+        <mat-error
+          *ngIf="
+            creditCard?.get('validate')?.errors &&
+            creditCard?.get('validate')?.touched
+          "
+        >
+          Campo Obrigatório
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <button
+      [disabled]="creditCard?.invalid"
+      mat-flat-button
+      color="primary"
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</mat-card>
