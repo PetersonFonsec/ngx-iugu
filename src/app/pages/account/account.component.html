@@ -1,0 +1,30 @@
+<mat-card>
+  <form #form="ngForm" (submit)="submit(form)" class="form">
+    <div class="form_content">
+      <mat-form-field>
+        <input
+          placeholder="Insira o ID da sua conta Iugu"
+          #accountID="ngModel"
+          name="accountID"
+          type="text"
+          matInput
+          required
+          [(ngModel)]="account"
+        />
+
+        <mat-error *ngIf="accountID.errors?.required && accountID.touched">
+          Campo Obrigatório
+        </mat-error>
+      </mat-form-field>
+
+      <button
+        [disabled]="form.invalid"
+        mat-flat-button
+        color="primary"
+        type="submit"
+      >
+        Enviar
+      </button>
+    </div>
+  </form>
+</mat-card>
