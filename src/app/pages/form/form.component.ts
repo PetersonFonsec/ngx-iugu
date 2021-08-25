@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 
-import { IuguCreditCard } from 'projects/ngx-iugu/src/lib/ngx-iugu/ngx-iugu.models';
+import {
+  IuguCreditCard,
+  IuguResponse,
+} from 'projects/ngx-iugu/src/lib/ngx-iugu/ngx-iugu.models';
 import { NgxIuguService } from 'projects/ngx-iugu/src/public-api';
+import { ModalComponent } from './modal/modal.component';
 
 @Component({
   selector: 'dd-form',
@@ -11,27 +17,27 @@ import { NgxIuguService } from 'projects/ngx-iugu/src/public-api';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit {
+  creditCardIugu: IuguResponse;
   creditCard!: FormGroup;
-  token = '';
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private IuguService: NgxIuguService,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private snackBar: MatSnackBar,
+    private modal: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(({ account }) => {
-      this.initialize(account);
-    });
-  }
-
-  async initialize(account: string): Promise<void> {
     this.creditCard = this.formBuilder.group({
       fullName: ['', [Validators.required]],
       validate: ['', [Validators.required]],
       cardNumber: ['', [Validators.required]],
       securityCode: ['', [Validators.required]],
+    });
+
+    this.activatedRoute.params.subscribe(async ({ account }) => {
+      await this.IuguService.initialize(account);
     });
   }
 
@@ -55,8 +61,13 @@ export class FormComponent implements OnInit {
     };
 
     try {
-      this.token = (await this.IuguService.createTokenByObject(params))?.id;
+      const data = await this.IuguService.createTokenByObject(params);
+      this.modal.open(ModalComponent, {
+        data,
+      });
     } catch (e) {
+      const { errors } = e;
+      this.snackBar.open(`${Object.keys(errors)[0]} is invalid`, 'Fechar');
       console.log(e);
     }
   }
