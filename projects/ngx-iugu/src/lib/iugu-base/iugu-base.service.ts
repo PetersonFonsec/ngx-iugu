@@ -8,9 +8,7 @@ export const iuguCDN = new InjectionToken<string>('interval');
 export class IuguBaseService {
   Iugu: Iugu;
 
-  constructor(@Inject(iuguCDN) private iuguParam?: IuguConfig) {
-    this.initialize();
-  }
+  constructor(@Inject(iuguCDN) private iuguParam?: IuguConfig) {}
 
   async initialize(accountID = '') {
     this.Iugu = await this.loadScript();

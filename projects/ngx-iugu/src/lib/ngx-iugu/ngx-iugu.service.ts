@@ -1,21 +1,11 @@
 import { Injectable } from '@angular/core';
+import { AbstractControl, FormGroup } from '@angular/forms';
+import { Iugu } from '../iugu-base/iugu-base.models';
 import { IuguBaseService } from '../iugu-base/iugu-base.service';
 import { IuguCreditCard, IuguResponse } from './ngx-iugu.models';
 
 @Injectable()
 export class NgxIuguService extends IuguBaseService {
-  private error(fieldName = '', message = '') {
-    return {
-      fields: [
-        {
-          fieldName,
-          message,
-        },
-      ],
-      message: 'Desculpe, ocorreu um erro na validação dos dados informados.',
-    };
-  }
-
   private createCreditCardObject({
     cardExpirationMonth,
     cardExpirationYear,
