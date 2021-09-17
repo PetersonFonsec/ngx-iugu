@@ -9,6 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "license": "MIT",
   "private": false,
   "dependencies": {
     "@angular/animations": "~11.2.1",
