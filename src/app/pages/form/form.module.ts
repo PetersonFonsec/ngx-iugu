@@ -8,9 +8,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { NgxMaskModule } from 'ngx-mask';
+import { NgxIuguModule } from 'ngx-iugu';
 
 import { FormComponent } from './form.component';
-import { NgxIuguModule } from 'projects/ngx-iugu/src/public-api';
 import { environment } from 'src/environments/environment';
 import { FormRoutingModule } from './form-routing.module';
 import { ModalComponent } from './modal/modal.component';

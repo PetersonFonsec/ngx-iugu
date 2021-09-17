@@ -3,12 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-
-import {
-  IuguCreditCard,
-  IuguResponse,
-} from 'projects/ngx-iugu/src/lib/ngx-iugu/ngx-iugu.models';
-import { NgxIuguService } from 'projects/ngx-iugu/src/public-api';
+import { NgxIuguService, IuguCreditCard, IuguResponse } from 'ngx-iugu';
 import { ModalComponent } from './modal/modal.component';
 
 @Component({
