@@ -1,6 +1,8 @@
 # ngx-iugu
 
-An Angular wrapper for Mercado Pago SDK for JavaScript.
+![https://user-images.githubusercontent.com/41239234/133863967-aeb26e35-9a51-499b-a90c-cdf942d33960.png](NGX-Iugu)
+
+An Angular wrapper for Iugu gatway for JavaScript.
 
 [Iugu Docs](https://dev.iugu.com/docs/iugu-js)
 
@@ -22,7 +24,7 @@ Finally, you can use ngx-iugu in your Angular project. You have to import `NgxIu
 
 The [`forRoot`](https://angular.io/api/router/RouterModule#forroot) static method is a convention that provides and configures services at the same time.
 Make sure you only call this method in the root module of your application, most of the time called `AppModule`.
-This method allows you to configure the `NgxMercadoPago` by specifying a publish key and/or a path for JS SDK.
+This method allows you to configure the `NgxIugu` by specifying a publish key and/or a path for JS SDK.
 
 ```ts
 import { BrowserModule } from '@angular/platform-browser';
@@ -58,8 +60,36 @@ export class MpPaymentPage implements OnInit {
     await this.IuguService.initialize();
   }
 
-  getPaymentMethods() {
-    const PaymentMethods = this.IuguService.getPaymentMethods();
+  submit() {
+    const creditCard = this.creditCard.getRawValue();
+    const [firstName, surName] =
+      this.IuguService.Iugu.utils.getFirstLastNameByFullName(
+        creditCard.fullName
+    );
+    
+    const [cardExpirationMonth, cardExpirationYear] =
+      this.IuguService.Iugu.utils.getMonthYearByFullExpiration(
+        creditCard.validate
+      );
+
+    const params: IuguCreditCard = {
+      ...creditCard,
+      cardExpirationMonth,
+      cardExpirationYear,
+      firstName,
+      surName,
+    };
+
+    try {
+      const data = await this.IuguService.createTokenByObject(params);
+      this.modal.open(ModalComponent, {
+        data,
+      });
+    } catch (e) {
+      const { errors } = e;
+      this.snackBar.open(`${Object.keys(errors)[0]} is invalid`, 'Fechar');
+      console.log(e);
+    }
   }
 }
 ```
