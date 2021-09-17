@@ -4,7 +4,9 @@ import { Iugu } from './iugu-base.models';
 
 export const iuguCDN = new InjectionToken<string>('interval');
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class IuguBaseService {
   Iugu: Iugu;
 

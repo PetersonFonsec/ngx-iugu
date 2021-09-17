@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
-import { Iugu } from '../iugu-base/iugu-base.models';
 import { IuguBaseService } from '../iugu-base/iugu-base.service';
 import { IuguCreditCard, IuguResponse } from './ngx-iugu.models';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NgxIuguService extends IuguBaseService {
   private createCreditCardObject({
     cardExpirationMonth,
