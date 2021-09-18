@@ -1,10 +1,9 @@
-# ngx-iugu
 
 ![NGX-Iugu](https://user-images.githubusercontent.com/41239234/133863967-aeb26e35-9a51-499b-a90c-cdf942d33960.png)
 
 An Angular wrapper for Iugu gatway for JavaScript.
 
-![Demo](http://ngx-iugu.surge.sh)
+[Demo](http://ngx-iugu.surge.sh)
 
 [Iugu Docs](https://dev.iugu.com/docs/iugu-js)
 

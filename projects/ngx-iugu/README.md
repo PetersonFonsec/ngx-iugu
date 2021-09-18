@@ -4,7 +4,7 @@
 
 An Angular wrapper for Iugu gatway for JavaScript.
 
-![Demo](http://ngx-iugu.surge.sh)
+[Demo](http://ngx-iugu.surge.sh)
 
 [Iugu Docs](https://dev.iugu.com/docs/iugu-js)
 
