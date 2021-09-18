@@ -1,11 +1,23 @@
 {
   "name": "ngx-iugu",
-  "version": "0.0.1",
+  "version": "1.0.4",
   "peerDependencies": {
     "@angular/common": "^11.2.14",
     "@angular/core": "^11.2.14"
   },
   "dependencies": {
     "tslib": "^2.0.0"
-  }
+  },
+  "description": "An Angular wrapper for Iugu gatway for JavaScript.",
+  "author": {
+    "email": "petersonsimiao1@gmail.com",
+    "name": "Peterson Fonseca",
+    "url": "http://ngx-iugu.surge.sh"
+  },
+  "repository": {
+    "url": "https://github.com/PetersonFonsec/ngx-iugu",
+    "type": "git"
+  },
+  "homepage": "https://github.com/PetersonFonsec/ngx-iugu",
+  "license": "MIT"
 }
