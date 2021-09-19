@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { FormComponent } from './form.component';
+import { FormModule } from './form.module';
 
 describe('FormComponent', () => {
   let component: FormComponent;
@@ -8,7 +11,11 @@ describe('FormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormComponent ]
+      imports: [
+        FormModule,
+        RouterTestingModule,
+        BrowserAnimationsModule
+      ]
     })
     .compileComponents();
   });
