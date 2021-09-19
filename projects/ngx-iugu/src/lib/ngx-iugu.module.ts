@@ -2,7 +2,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { NgxIuguService } from './ngx-iugu/ngx-iugu.service';
 
 import { IuguConfig } from './ngx-iugu/ngx-iugu.models';
-import { iuguCDN } from './iugu-base/iugu-base.service';
+import { iuguParam } from './iugu-base/iugu-base.service';
 
 @NgModule({
   declarations: [],
@@ -17,7 +17,7 @@ export class NgxIuguModule {
         NgxIuguService,
         ,
         {
-          provide: iuguCDN,
+          provide: iuguParam,
           useValue: iuguConfig,
         },
       ],

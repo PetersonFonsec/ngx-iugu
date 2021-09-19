@@ -1,12 +1,20 @@
 import { TestBed } from '@angular/core/testing';
-
-import { IuguBaseService } from './iugu-base.service';
+import { IuguBaseService, iuguParam } from './iugu-base.service';
 
 describe('IuguBaseService', () => {
   let service: IuguBaseService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [{
+        provide: iuguParam,
+        useValue: {
+          accountID: '',
+          CDN: 'https://js.iugu.com/v2',
+          testMode: true
+        }
+      }]
+    });
     service = TestBed.inject(IuguBaseService);
   });
 

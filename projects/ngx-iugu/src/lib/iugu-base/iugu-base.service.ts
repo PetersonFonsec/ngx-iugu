@@ -2,7 +2,7 @@ import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { IuguConfig } from '../ngx-iugu/ngx-iugu.models';
 import { Iugu } from './iugu-base.models';
 
-export const iuguCDN = new InjectionToken<string>('interval');
+export const iuguParam = new InjectionToken<string>('iuguParam');
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export const iuguCDN = new InjectionToken<string>('interval');
 export class IuguBaseService {
   Iugu: Iugu;
 
-  constructor(@Inject(iuguCDN) private iuguParam?: IuguConfig) {}
+  constructor(@Inject(iuguParam) private iuguParam?: IuguConfig) {}
 
   async initialize(accountID = '') {
     this.Iugu = await this.loadScript();
