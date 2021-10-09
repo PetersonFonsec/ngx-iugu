@@ -3,7 +3,7 @@ import { NgxIuguService } from './ngx-iugu/ngx-iugu.service';
 
 import { IuguConfig } from './ngx-iugu/ngx-iugu.models';
 import { iuguParam } from './iugu-base/iugu-base.service';
-
+// @dynamic
 @NgModule({
   declarations: [],
   imports: [],
