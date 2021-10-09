@@ -1,6 +1,6 @@
 {
   "name": "ngx-iugu",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "peerDependencies": {
     "@angular/common": "^11.2.14",
     "@angular/core": "^11.2.14"
@@ -18,6 +18,6 @@
     "url": "https://github.com/PetersonFonsec/ngx-iugu",
     "type": "git"
   },
-  "homepage": "https://github.com/PetersonFonsec/ngx-iugu",
+  "homepage": "http://ngx-iugu.surge.sh/",
   "license": "MIT"
 }
