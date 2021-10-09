@@ -4,11 +4,7 @@ import { NgxIuguService } from './ngx-iugu/ngx-iugu.service';
 import { IuguConfig } from './ngx-iugu/ngx-iugu.models';
 import { iuguParam } from './iugu-base/iugu-base.service';
 
-@NgModule({
-  declarations: [],
-  imports: [],
-  exports: [],
-})
+// @dynamic
 export class NgxIuguModule {
   static footRoot(iuguConfig: IuguConfig): ModuleWithProviders<NgxIuguModule> {
     return {

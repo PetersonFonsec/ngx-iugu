@@ -2,11 +2,9 @@ import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { IuguConfig } from '../ngx-iugu/ngx-iugu.models';
 import { Iugu } from './iugu-base.models';
 
+/** @hidden */
 export const iuguParam = new InjectionToken<string>('iuguParam');
 
-@Injectable({
-  providedIn: 'root'
-})
 export class IuguBaseService {
   Iugu: Iugu;
 
