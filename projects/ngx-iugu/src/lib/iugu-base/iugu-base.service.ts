@@ -5,7 +5,7 @@ import { Iugu } from './iugu-base.models';
 export const iuguParam = new InjectionToken<string>('iuguParam');
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IuguBaseService {
   Iugu: Iugu;

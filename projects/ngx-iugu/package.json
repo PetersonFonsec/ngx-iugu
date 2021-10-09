@@ -1,6 +1,6 @@
 {
   "name": "ngx-iugu",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "peerDependencies": {
     "@angular/common": "^11.2.14",
     "@angular/core": "^11.2.14"
