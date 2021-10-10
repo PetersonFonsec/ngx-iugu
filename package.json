@@ -1,6 +1,16 @@
 {
-  "name": "ngx-iugu",
-  "version": "1.0.8",
+  "name": "@peterson-fonsec/ngx-iugu",
+  "version": "1.1.2",
+  "author": {
+    "email": "petersonsimiao1@gmail.com",
+    "name": "Peterson Fonseca",
+    "url": "http://ngx-iugu.surge.sh"
+  },
+  "repository": {
+    "url": "https://github.com/PetersonFonsec/ngx-iugu",
+    "type": "git"
+  },
+  "homepage": "http://ngx-iugu.surge.sh/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
