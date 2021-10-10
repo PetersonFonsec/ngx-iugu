@@ -2,13 +2,16 @@
 
 ![NGX-Iugu](https://user-images.githubusercontent.com/41239234/133863967-aeb26e35-9a51-499b-a90c-cdf942d33960.png)
 
+![Lib CI](https://github.com/PetersonFonsec/ngx-iugu/actions/workflows/Lib-CI.yml/badge.svg)<br/>
+[![npm version](https://badge.fury.io/js/ngx-iugu.svg)](https://badge.fury.io/js/ngx-iugu)
+
 An Angular wrapper for Iugu gatway for JavaScript.
 
 [Demo](http://ngx-iugu.surge.sh)
 
 [Iugu Docs](https://dev.iugu.com/docs/iugu-js)
 
-## 📲 Installation 
+## 📲 Installation
 
 First time using Iugu? Create your [Iugu account](https://alia.iugu.com), if you don’t have one already.
 
@@ -29,25 +32,26 @@ Make sure you only call this method in the root module of your application, most
 This method allows you to configure the `NgxIugu` by specifying a publish key and/or a path for JS SDK.
 
 ```ts
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { NgxIuguModule } from 'ngx-iugu';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { NgxIuguModule } from "ngx-iugu";
 
 @NgModule({
   imports: [
     BrowserModule,
     NgxIuguModule.forRoot({
-      CDN?: string,
-      testMode?: boolean,
-      accountID?: string,
-    })
+      CDN: string,
+      testMode: boolean,
+      accountID: string,
+    }),
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 ```
 
 #### 2. Import the `NgxIuguService`:
+
 ```ts
 ...
 import { NgxIuguService, IuguCreditCard, IuguResponse } from 'ngx-iugu';
@@ -57,7 +61,7 @@ export class MpPaymentPage implements OnInit {
   constructor(
     private IuguService: NgxIuguService
   ) { }
-    
+
   ngOnInit() {
     await this.IuguService.initialize();
   }
@@ -68,7 +72,7 @@ export class MpPaymentPage implements OnInit {
       this.IuguService.Iugu.utils.getFirstLastNameByFullName(
         creditCard.fullName
     );
-    
+
     const [cardExpirationMonth, cardExpirationYear] =
       this.IuguService.Iugu.utils.getMonthYearByFullExpiration(
         creditCard.validate
@@ -95,6 +99,7 @@ export class MpPaymentPage implements OnInit {
   }
 }
 ```
+
 ## Issues
 
 Please, open an [issue](https://github.com/PetersonFonsec/ngx-iugu/issues) following one of the issues templates. We will do our best to fix them.
@@ -102,6 +107,5 @@ Please, open an [issue](https://github.com/PetersonFonsec/ngx-iugu/issues) follo
 ## License
 
 Distributed under the **MIT license**. See [LICENSE](https://github.com/PetersonFonsec/ngx-iugu/blob/master/LICENSE.txt) for more information.
-
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.1.
