@@ -17,6 +17,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
+      - run: npm install
       - run: npm run build:lib
       - run: cd dist/ngx-iugu/
       - run: npm publish --access public
