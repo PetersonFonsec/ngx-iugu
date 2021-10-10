@@ -151,7 +151,11 @@
           "options": {
             "main": "projects/ngx-iugu/src/test.ts",
             "tsConfig": "projects/ngx-iugu/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-iugu/karma.conf.js"
+            "karmaConfig": "projects/ngx-iugu/karma.conf.js",
+            "browsers": "ChromeHeadless",
+            "codeCoverage": true,
+            "sourceMap": false,
+            "watch": false
           }
         },
         "lint": {
