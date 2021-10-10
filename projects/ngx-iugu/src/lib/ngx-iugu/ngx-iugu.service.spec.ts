@@ -14,7 +14,7 @@ const creditCardMock = {
   validate: '12/33',
 };
 
-//TODO pesquisar uma forma de criar o token de forma progamativa sem ter que criar hardcodede a variavel global ka
+// TODO pesquisar uma forma de criar o token de forma progamativa sem ter que criar hardcodede a variavel global ka
 (window as any).ka = {
   ClientSDK: () => {},
   HTTP_POST: 'POST',

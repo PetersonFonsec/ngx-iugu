@@ -33,11 +33,8 @@ export class NgxIuguService extends IuguBaseService {
 
   createToken(paymentData: CreditCardObjectIugu): Promise<IuguResponse> {
     return new Promise((resolve, reject) => {
-      this.Iugu.createPaymentToken(
-        paymentData,
-        function (response: IuguResponse) {
-          response.errors ? reject(response) : resolve(response);
-        }
+      this.Iugu.createPaymentToken(paymentData, (response: IuguResponse) =>
+        response.errors ? reject(response) : resolve(response)
       );
     });
   }

@@ -2,7 +2,7 @@ import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { IuguConfig } from '../ngx-iugu/ngx-iugu.models';
 import { Iugu } from './iugu-base.models';
 
-export const iuguParam = new InjectionToken<string>('iuguParam');
+export const iuguParam = new InjectionToken<IuguConfig>('iuguParam');
 
 @Injectable({
   providedIn: 'root',
@@ -10,13 +10,13 @@ export const iuguParam = new InjectionToken<string>('iuguParam');
 export class IuguBaseService {
   Iugu: Iugu;
 
-  constructor(@Inject(iuguParam) private iuguParam?: IuguConfig) {}
+  constructor(@Inject(iuguParam) private iuguConfig?: IuguConfig) {}
 
-  async initialize(accountID = '') {
+  async initialize(accountID = ''): Promise<void> {
     this.Iugu = await this.loadScript();
 
-    this.Iugu.setAccountID(this.iuguParam?.accountID || accountID);
-    this.Iugu.setTestMode(this.iuguParam?.testMode ?? true);
+    this.Iugu.setAccountID(this.iuguConfig?.accountID || accountID);
+    this.Iugu.setTestMode(this.iuguConfig?.testMode ?? true);
   }
 
   private async loadScript(): Promise<Iugu> {
@@ -25,12 +25,10 @@ export class IuguBaseService {
     script.type = 'text/javascript';
 
     const promise = new Promise<Iugu>((resolve) => {
-      script.onload = function () {
-        resolve((window as any).Iugu);
-      };
+      script.onload = () => resolve((window as any).Iugu);
     });
 
-    script.src = this.iuguParam?.CDN ?? 'https://js.iugu.com/v2';
+    script.src = this.iuguConfig?.CDN ?? 'https://js.iugu.com/v2';
     return promise;
   }
 }

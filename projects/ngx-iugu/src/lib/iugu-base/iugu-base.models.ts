@@ -1,3 +1,5 @@
+import { IuguResponse } from '../ngx-iugu/ngx-iugu.models';
+
 export interface Iugu {
   CreditCard: (
     cardNumber: string | number,
@@ -7,7 +9,10 @@ export interface Iugu {
     surName: string,
     securityCode: string | number
   ) => CreditCardObjectIugu;
-  createPaymentToken: (paymentData: any, callback: (any: any) => any) => any;
+  createPaymentToken: (
+    paymentData: any,
+    callback: (response: IuguResponse) => any
+  ) => any;
   getSessionId: () => any;
   initializedFields: () => any;
   setAccountID: (accountID: string) => any;
