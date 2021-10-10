@@ -36,7 +36,7 @@ export class FormComponent implements OnInit {
     });
   }
 
-  async submit() {
+  async submit(): Promise<void> {
     const creditCard = this.creditCard.getRawValue();
     const [firstName, surName] =
       this.IuguService.Iugu.utils.getFirstLastNameByFullName(
@@ -63,7 +63,6 @@ export class FormComponent implements OnInit {
     } catch (e) {
       const { errors } = e;
       this.snackBar.open(`${Object.keys(errors)[0]} is invalid`, 'Fechar');
-      console.log(e);
     }
   }
 }

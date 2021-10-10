@@ -12,6 +12,8 @@ export class AccountComponent {
   constructor(private router: Router) {}
 
   async submit(form: NgForm): Promise<void> {
-    if (form.valid) await this.router.navigateByUrl(`/form/${this.account}`);
+    if (form.valid) {
+      await this.router.navigateByUrl(`/form/${this.account}`);
+    }
   }
 }
