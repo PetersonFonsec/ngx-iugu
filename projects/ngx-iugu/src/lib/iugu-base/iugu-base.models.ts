@@ -6,8 +6,8 @@ export interface Iugu {
     firstName: string,
     surName: string,
     securityCode: string | number
-  ) => any;
-  createPaymentToken: (paymentData: string, callback: (any: any) => any) => any;
+  ) => CreditCardObjectIugu;
+  createPaymentToken: (paymentData: any, callback: (any: any) => any) => any;
   getSessionId: () => any;
   initializedFields: () => any;
   setAccountID: (accountID: string) => any;
@@ -30,4 +30,10 @@ export interface Iugu {
     validateFirstName: (firstName: string) => boolean;
     validateLastName: (lastName: string) => boolean;
   };
+}
+export interface CreditCardObjectIugu {
+  brand: () => any;
+  errors: () => any;
+  toData: () => any;
+  valid: () => any;
 }

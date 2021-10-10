@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
+    "test:lib": "ng test ngx-iugu",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

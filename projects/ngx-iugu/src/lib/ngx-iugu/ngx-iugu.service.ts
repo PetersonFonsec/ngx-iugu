@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
+import { CreditCardObjectIugu } from '../iugu-base/iugu-base.models';
 import { IuguBaseService } from '../iugu-base/iugu-base.service';
 import { IuguCreditCard, IuguResponse } from './ngx-iugu.models';
 @Injectable({
   providedIn: 'root',
 })
 export class NgxIuguService extends IuguBaseService {
-  private createCreditCardObject({
+  createCreditCardObject({
     cardExpirationMonth,
     cardExpirationYear,
     cardNumber,
     securityCode,
     firstName,
     surName,
-  }: IuguCreditCard): void {
+  }: IuguCreditCard): CreditCardObjectIugu {
     return this.Iugu.CreditCard(
       cardNumber,
       cardExpirationMonth,
@@ -30,11 +31,14 @@ export class NgxIuguService extends IuguBaseService {
     return await this.createToken(creditCardObject);
   }
 
-  createToken(paymentData: any): Promise<IuguResponse> {
+  createToken(paymentData: CreditCardObjectIugu): Promise<IuguResponse> {
     return new Promise((resolve, reject) => {
-      this.Iugu.createPaymentToken(paymentData, function (response: any) {
-        response.errors ? reject(response) : resolve(response);
-      });
+      this.Iugu.createPaymentToken(
+        paymentData,
+        function (response: IuguResponse) {
+          response.errors ? reject(response) : resolve(response);
+        }
+      );
     });
   }
 }
