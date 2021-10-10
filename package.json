@@ -5,9 +5,10 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:lib": "ng build --prod ngx-iugu",
+    "build:lib": "ng build --prod ngx-iugu ChromeHeadless",
     "test": "ng test",
     "test:lib": "ng test ngx-iugu",
+    "test:ci": "ng test ngx-iugu --watch=false --browsers ChromeHeadless",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
