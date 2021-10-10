@@ -2,8 +2,8 @@
 
 ![NGX-Iugu](https://user-images.githubusercontent.com/41239234/133863967-aeb26e35-9a51-499b-a90c-cdf942d33960.png)
 
-![Lib CI](https://github.com/PetersonFonsec/ngx-iugu/actions/workflows/Lib-CI.yml/badge.svg)<br/>
-[![npm version](https://badge.fury.io/js/ngx-iugu.svg)](https://badge.fury.io/js/ngx-iugu)
+![Lib CI](https://github.com/PetersonFonsec/ngx-iugu/actions/workflows/Lib-CI.yml/badge.svg)
+[![npm version](https://badge.fury.io/js/ngx-iugu.svg)](https://badge.fury.io/js/ngx-iugu)<br/>
 
 An Angular wrapper for Iugu gatway for JavaScript.
 
