@@ -17,7 +17,7 @@
     "build": "ng build",
     "build:lib": "ng build --prod ngx-iugu",
     "test": "ng test",
-    "test:lib": "ng test ngx-iugu",
+    "test:lib": "ng test ngx-iugu --watch=true --browsers Chrome",
     "test:ci": "ng test ngx-iugu --watch=false --browsers ChromeHeadless",
     "lint": "ng lint",
     "e2e": "ng e2e"
