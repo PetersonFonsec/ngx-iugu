@@ -15,7 +15,7 @@ export class NgxIuguValidationsService {
   }
 
   asyncValidateCreditCardNumber = (control: FormControl) => {
-    return new Promise((resolver) => {
+    return new Promise((resolver, reject) => {
       try {
         const iugu = this.getIugu();
         const isValidNumber = iugu.utils.validateCreditCardNumber(
@@ -23,7 +23,7 @@ export class NgxIuguValidationsService {
         );
         resolver(isValidNumber ? null : { invalidNumber: true });
       } catch (error) {
-        return resolver({ iuguNotInitialized: true });
+        return reject({ iuguNotInitialized: true });
       }
     });
   };
@@ -39,13 +39,14 @@ export class NgxIuguValidationsService {
   };
 
   asyncValidateAccountID = (field: FormControl) => {
-    return new Promise((resolver) => {
+    return new Promise((resolver, reject) => {
       try {
         const iugu = this.getIugu();
         const isValidAccountID = iugu.utils.validateAccountID(field.value);
-        !isValidAccountID ? resolver({ invalidNumber: true }) : resolver(null);
+
+        resolver(isValidAccountID ? null : { invalidAccountId: true });
       } catch (error) {
-        return { iuguNotInitialized: true };
+        return reject({ iuguNotInitialized: true });
       }
     });
   };
@@ -61,16 +62,16 @@ export class NgxIuguValidationsService {
   };
 
   asyncValidateCVV = (field: FormControl) => {
-    return new Promise((resolver) => {
+    return new Promise((resolver, reject) => {
       try {
         const { value } = field;
         const iugu = this.getIugu();
         const flag = iugu.utils.getBrandByCreditCardNumber(value);
         const isValidCVV = iugu.utils.validateCVV(value, flag);
-        !isValidCVV ? resolver({ invalidCVV: true }) : resolver(null);
+
+        resolver(isValidCVV ? null : { invalidCVV: true });
       } catch (error) {
-        console.log(error);
-        return { iuguNotInitialized: true };
+        return reject({ iuguNotInitialized: true });
       }
     });
   };
@@ -88,7 +89,7 @@ export class NgxIuguValidationsService {
   };
 
   asyncValidateExpiration = (field: FormControl) => {
-    return new Promise((resolver) => {
+    return new Promise((resolver, reject) => {
       try {
         const { value } = field;
         const iugu = this.getIugu();
@@ -98,9 +99,10 @@ export class NgxIuguValidationsService {
           cardExpirationMonth,
           cardExpirationYear
         );
-        !isValidExpiration ? resolver({ invalidNumber: true }) : resolver(null);
+
+        resolver(isValidExpiration ? null : { invalidExpiration: true });
       } catch (error) {
-        return { iuguNotInitialized: true };
+        return reject({ iuguNotInitialized: true });
       }
     });
   };
@@ -115,22 +117,22 @@ export class NgxIuguValidationsService {
         cardExpirationMonth,
         cardExpirationYear
       );
-      if (!isValidExpiration) return { invalidNumber: true };
+      if (!isValidExpiration) return { invalidExpiration: true };
     } catch (error) {
       return { iuguNotInitialized: true };
     }
   };
 
   asyncValidateExpirationString = (field: FormControl) => {
-    return new Promise((resolver) => {
+    return new Promise((resolver, reject) => {
       try {
         const { value } = field;
         const iugu = this.getIugu();
         const isValidExpiration = iugu.utils.validateExpirationString(value);
 
-        !isValidExpiration ? resolver({ invalidNumber: true }) : resolver(null);
+        resolver(isValidExpiration ? null : { invalidExpiration: true });
       } catch (error) {
-        return { iuguNotInitialized: true };
+        return reject({ iuguNotInitialized: true });
       }
     });
   };
@@ -140,7 +142,7 @@ export class NgxIuguValidationsService {
       const { value } = field;
       const iugu = this.getIugu();
       const isValidExpiration = iugu.utils.validateExpirationString(value);
-      if (!isValidExpiration) return { invalidNumber: true };
+      if (!isValidExpiration) return { invalidExpiration: true };
     } catch (error) {
       return { iuguNotInitialized: true };
     }
