@@ -28,37 +28,17 @@ export class NgxIuguValidationsService {
     });
   };
 
-  validateCreditCardNumber = (field: FormControl) => {
-    try {
-      const iugu = this.getIugu();
-      const isValidNumber = iugu.utils.validateCreditCardNumber(field.value);
-      if (!isValidNumber) return { invalidNumber: true };
-    } catch (error) {
-      return { iuguNotInitialized: true };
-    }
-  };
-
   asyncValidateAccountID = (field: FormControl) => {
     return new Promise((resolver, reject) => {
       try {
-        const iugu = this.getIugu();
-        const isValidAccountID = iugu.utils.validateAccountID(field.value);
-
+        const regex =
+          /^[a-fA-F0-9]{8}[a-fA-F0-9]{4}[a-fA-F0-9]{4}[a-fA-F0-9]{4}[a-fA-F0-9]{12}$/;
+        const isValidAccountID = regex.test(field.value);
         resolver(isValidAccountID ? null : { invalidAccountId: true });
       } catch (error) {
         return reject({ iuguNotInitialized: true });
       }
     });
-  };
-
-  validateAccountID = (field: FormControl) => {
-    try {
-      const iugu = this.getIugu();
-      const isValidAccountID = iugu.utils.validateAccountID(field.value);
-      if (!isValidAccountID) return { invalidAccountID: true };
-    } catch (error) {
-      return { iuguNotInitialized: true };
-    }
   };
 
   validateCVV(creditCardNumber: string, securityCode: string) {
@@ -107,46 +87,5 @@ export class NgxIuguValidationsService {
         return reject({ iuguNotInitialized: true });
       }
     });
-  };
-
-  validateExpiration = (field: FormControl) => {
-    try {
-      const { value } = field;
-      const iugu = this.getIugu();
-      const [cardExpirationMonth, cardExpirationYear] =
-        iugu.utils.getMonthYearByFullExpiration(value);
-      const isValidExpiration = iugu.utils.validateExpiration(
-        cardExpirationMonth,
-        cardExpirationYear
-      );
-      if (!isValidExpiration) return { invalidExpiration: true };
-    } catch (error) {
-      return { iuguNotInitialized: true };
-    }
-  };
-
-  asyncValidateExpirationString = (field: FormControl) => {
-    return new Promise((resolver, reject) => {
-      try {
-        const { value } = field;
-        const iugu = this.getIugu();
-        const isValidExpiration = iugu.utils.validateExpirationString(value);
-
-        resolver(isValidExpiration ? null : { invalidExpiration: true });
-      } catch (error) {
-        return reject({ iuguNotInitialized: true });
-      }
-    });
-  };
-
-  validateExpirationString = (field: FormControl) => {
-    try {
-      const { value } = field;
-      const iugu = this.getIugu();
-      const isValidExpiration = iugu.utils.validateExpirationString(value);
-      if (!isValidExpiration) return { invalidExpiration: true };
-    } catch (error) {
-      return { iuguNotInitialized: true };
-    }
   };
 }
