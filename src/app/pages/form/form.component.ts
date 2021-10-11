@@ -3,7 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { NgxIuguService, IuguCreditCard, IuguResponse } from 'ngx-iugu';
+import {
+  NgxIuguService,
+  IuguCreditCard,
+  IuguResponse,
+  NgxIuguValidationsService,
+} from 'projects/ngx-iugu/src/public-api';
 import { ModalComponent } from './modal/modal.component';
 
 @Component({
@@ -16,6 +21,7 @@ export class FormComponent implements OnInit {
   creditCard!: FormGroup;
 
   constructor(
+    private IuguValidationsService: NgxIuguValidationsService,
     private activatedRoute: ActivatedRoute,
     private IuguService: NgxIuguService,
     private formBuilder: FormBuilder,
@@ -23,12 +29,24 @@ export class FormComponent implements OnInit {
     private modal: MatDialog
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.creditCard = this.formBuilder.group({
       fullName: ['', [Validators.required]],
-      validate: ['', [Validators.required]],
-      cardNumber: ['', [Validators.required]],
-      securityCode: ['', [Validators.required]],
+      validate: [
+        '',
+        [Validators.required],
+        [this.IuguValidationsService.asyncValidateExpiration],
+      ],
+      cardNumber: [
+        '',
+        [Validators.required],
+        [this.IuguValidationsService.asyncValidateCreditCardNumber],
+      ],
+      securityCode: [
+        '',
+        [Validators.required],
+        [this.IuguValidationsService.asyncValidateCVV],
+      ],
     });
 
     this.activatedRoute.params.subscribe(async ({ account }) => {
