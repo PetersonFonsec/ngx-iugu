@@ -11,8 +11,9 @@ export class IuguBaseService {
   Iugu: Iugu;
 
   constructor(@Inject(iuguParam) private iuguConfig?: IuguConfig) {
-    if (iuguConfig.autoInicialize)
+    if (iuguConfig.autoInicialize) {
       this.initialize().then(() => console.log('iugu script loaded'));
+    }
   }
 
   async initialize(accountID = ''): Promise<void> {

@@ -10,7 +10,9 @@ export class NgxIuguValidationsService {
 
   private getIugu(): Iugu {
     const iugu: Iugu | undefined = (window as any).Iugu;
-    if (!iugu) throw new Error('iugu scripts not yet initialized');
+    if (!iugu) {
+      throw new Error('iugu scripts not yet initialized');
+    }
     return iugu;
   }
 
@@ -26,7 +28,7 @@ export class NgxIuguValidationsService {
         return reject({ iuguNotInitialized: true });
       }
     });
-  };
+  }
 
   asyncValidateAccountID = (field: FormControl) => {
     return new Promise((resolver, reject) => {
@@ -39,9 +41,12 @@ export class NgxIuguValidationsService {
         return reject({ iuguNotInitialized: true });
       }
     });
-  };
+  }
 
-  validateCVV(creditCardNumber: string, securityCode: string) {
+  validateCVV(
+    creditCardNumber: string,
+    securityCode: string
+  ): (form: FormGroup) => any {
     return (form: FormGroup) => {
       try {
         const cvv = form.controls[securityCode]?.value;
@@ -87,5 +92,5 @@ export class NgxIuguValidationsService {
         return reject({ iuguNotInitialized: true });
       }
     });
-  };
+  }
 }

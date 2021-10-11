@@ -47,7 +47,7 @@ describe('NgxIuguValidationsService', () => {
   });
 
   it('Should return null when sended a valid credit card number', async (done) => {
-    let validCreditCardNumber = new FormControl('4111111111111111');
+    const validCreditCardNumber = new FormControl('4111111111111111');
     const response = await service.asyncValidateCreditCardNumber(
       validCreditCardNumber
     );
@@ -56,7 +56,7 @@ describe('NgxIuguValidationsService', () => {
   });
 
   it('Should return an object with invalidNumber true when called with invalid credit card number', async (done) => {
-    let invalidCreditCardNumber = new FormControl('2222222222222222');
+    const invalidCreditCardNumber = new FormControl('2222222222222222');
     const response = await service.asyncValidateCreditCardNumber(
       invalidCreditCardNumber
     );
@@ -65,21 +65,21 @@ describe('NgxIuguValidationsService', () => {
   });
 
   it('Should return null when called with valid accountID', async (done) => {
-    let validAccountId = new FormControl('90F49CDF9E5646BCA03A3B6EAA31049B');
+    const validAccountId = new FormControl('90F49CDF9E5646BCA03A3B6EAA31049B');
     const result = await service.asyncValidateAccountID(validAccountId);
     expect(result).toEqual(null);
     done();
   });
 
   it('Should return an object with invalidAccountID true when called with invalid accountID', async (done) => {
-    let validAccountId = new FormControl('invalidAccountID');
+    const validAccountId = new FormControl('invalidAccountID');
     const result = await service.asyncValidateAccountID(validAccountId);
     expect(result).toEqual({ invalidAccountId: true });
     done();
   });
 
   it('Should set withoutCreditCardNumber error in cvv control when credit card number is empty or invalid', () => {
-    let form = new FormGroup({
+    const form = new FormGroup({
       number: new FormControl(0),
       cvv: new FormControl('123'),
     });
@@ -91,7 +91,7 @@ describe('NgxIuguValidationsService', () => {
   it('Should set invalidCVV error in cvv control when cvv is invalid', () => {
     const validCreditCardNumber = '4111111111111111';
 
-    let form = new FormGroup({
+    const form = new FormGroup({
       number: new FormControl(validCreditCardNumber),
       cvv: new FormControl('peterson'),
     });
