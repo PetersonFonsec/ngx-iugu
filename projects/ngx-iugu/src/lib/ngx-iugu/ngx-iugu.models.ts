@@ -29,7 +29,8 @@ export interface IuguResponse {
 }
 
 export interface IuguConfig {
+  autoInicialize?: boolean;
   accountID?: string;
-  CDN?: string;
   testMode?: boolean;
+  CDN?: string;
 }

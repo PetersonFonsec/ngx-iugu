@@ -10,7 +10,10 @@ export const iuguParam = new InjectionToken<IuguConfig>('iuguParam');
 export class IuguBaseService {
   Iugu: Iugu;
 
-  constructor(@Inject(iuguParam) private iuguConfig?: IuguConfig) {}
+  constructor(@Inject(iuguParam) private iuguConfig?: IuguConfig) {
+    if (iuguConfig.autoInicialize)
+      this.initialize().then(() => console.log('iugu script loaded'));
+  }
 
   async initialize(accountID = ''): Promise<void> {
     this.Iugu = await this.loadScript();
