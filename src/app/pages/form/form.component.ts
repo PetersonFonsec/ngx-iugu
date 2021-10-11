@@ -30,24 +30,28 @@ export class FormComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.creditCard = this.formBuilder.group({
-      fullName: ['', [Validators.required]],
-      validate: [
-        '',
-        [Validators.required],
-        [this.IuguValidationsService.asyncValidateExpiration],
-      ],
-      cardNumber: [
-        '',
-        [Validators.required],
-        [this.IuguValidationsService.asyncValidateCreditCardNumber],
-      ],
-      securityCode: [
-        '',
-        [Validators.required],
-        [this.IuguValidationsService.asyncValidateCVV],
-      ],
-    });
+    this.creditCard = this.formBuilder.group(
+      {
+        fullName: ['', [Validators.required]],
+        validate: [
+          '',
+          [Validators.required],
+          [this.IuguValidationsService.asyncValidateExpiration],
+        ],
+        cardNumber: [
+          '',
+          [Validators.required],
+          [this.IuguValidationsService.asyncValidateCreditCardNumber],
+        ],
+        securityCode: ['', [Validators.required]],
+      },
+      {
+        validator: this.IuguValidationsService.validateCVV(
+          'cardNumber',
+          'securityCode'
+        ),
+      }
+    );
 
     this.activatedRoute.params.subscribe(async ({ account }) => {
       await this.IuguService.initialize(account);

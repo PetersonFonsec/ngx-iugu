@@ -8,6 +8,7 @@ enum Errors {
   invalidCVV = 'Campo CVV invalido',
   invalidNumber = 'Numero do cartão é invalido',
   mask = 'Campo com valor incorreto',
+  withoutCreditCardNumber = 'Para validar o código de seguranca informe o numero do cartão',
 }
 
 @Pipe({
