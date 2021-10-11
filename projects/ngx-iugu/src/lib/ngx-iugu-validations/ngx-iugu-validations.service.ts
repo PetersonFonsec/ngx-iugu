@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Iugu } from '../iugu-base/iugu-base.models';
 
 @Injectable({
@@ -61,32 +61,34 @@ export class NgxIuguValidationsService {
     }
   };
 
-  asyncValidateCVV = (field: FormControl) => {
-    return new Promise((resolver, reject) => {
+  validateCVV(creditCardNumber: string, securityCode: string) {
+    return (form: FormGroup) => {
       try {
-        const { value } = field;
+        const cvv = form.controls[securityCode]?.value;
+        const ccNumber = form.controls[creditCardNumber]?.value;
         const iugu = this.getIugu();
-        const flag = iugu.utils.getBrandByCreditCardNumber(value);
-        const isValidCVV = iugu.utils.validateCVV(value, flag);
+        const flag = iugu.utils.getBrandByCreditCardNumber(
+          ccNumber?.toString()
+        );
 
-        resolver(isValidCVV ? null : { invalidCVV: true });
+        if (!flag || !ccNumber) {
+          return form.controls[securityCode].setErrors({
+            withoutCreditCardNumber: true,
+          });
+        }
+
+        const isValidCVV = iugu.utils.validateCVV(cvv, flag);
+
+        if (!isValidCVV) {
+          form.controls[securityCode].setErrors({ invalidCVV: true });
+        }
+
+        return isValidCVV ? null : { invalidCVV: true };
       } catch (error) {
-        return reject({ iuguNotInitialized: true });
+        return { iuguNotInitialized: true };
       }
-    });
-  };
-
-  validateCVV = (field: FormControl) => {
-    try {
-      const { value } = field;
-      const iugu = this.getIugu();
-      const flag = iugu.utils.getBrandByCreditCardNumber(value);
-      const isValidCVV = iugu.utils.validateCVV(value, flag);
-      if (!isValidCVV) return { invalidCVV: true };
-    } catch (error) {
-      return { iuguNotInitialized: true };
-    }
-  };
+    };
+  }
 
   asyncValidateExpiration = (field: FormControl) => {
     return new Promise((resolver, reject) => {
