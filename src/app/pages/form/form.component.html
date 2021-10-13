@@ -11,11 +11,11 @@
         />
         <mat-error
           *ngIf="
-            creditCard?.get('fullName')?.errors?.required &&
+            creditCard?.get('fullName')?.errors &&
             creditCard?.get('fullName')?.touched
           "
         >
-          Campo Obrigatório
+          {{ creditCard?.get("fullName")?.errors | errors }}
         </mat-error>
       </mat-form-field>
 
@@ -34,7 +34,7 @@
             creditCard?.get('cardNumber')?.touched
           "
         >
-          Campo Obrigatório
+          {{ creditCard?.get("cardNumber")?.errors | errors }}
         </mat-error>
       </mat-form-field>
 
@@ -54,7 +54,7 @@
             creditCard?.get('securityCode')?.touched
           "
         >
-          Campo Obrigatório
+          {{ creditCard?.get("securityCode")?.errors | errors }}
         </mat-error>
       </mat-form-field>
 
@@ -74,7 +74,7 @@
             creditCard?.get('validate')?.touched
           "
         >
-          Campo Obrigatório
+          {{ creditCard?.get("validate")?.errors | errors }}
         </mat-error>
       </mat-form-field>
     </div>

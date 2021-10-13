@@ -43,6 +43,7 @@ import { NgxIuguModule } from "ngx-iugu";
       CDN: string,
       testMode: boolean,
       accountID: string,
+      autoInicialize: boolean,
     }),
   ],
   bootstrap: [AppComponent],
@@ -50,29 +51,96 @@ import { NgxIuguModule } from "ngx-iugu";
 export class AppModule {}
 ```
 
-#### 2. Import the `NgxIuguService`:
+#### 2. Import the `NgxIuguService` and `NgxIuguValidationsService`
 
 ```ts
-...
-import { NgxIuguService, IuguCreditCard, IuguResponse } from 'ngx-iugu';
-...
+import {
+  NgxIuguService,
+  IuguCreditCard,
+  IuguResponse,
+  NgxIuguValidationsService,
+} from "projects/ngx-iugu/src/public-api";
 
-export class MpPaymentPage implements OnInit {
+@Component({
+  selector: "dd-form",
+  templateUrl: "./form.component.html",
+  styleUrls: ["./form.component.scss"],
+})
+export class FormComponent implements OnInit {
+  creditCardIugu: IuguResponse;
+  creditCard!: FormGroup;
+
   constructor(
-    private IuguService: NgxIuguService
-  ) { }
+    private IuguValidationsService: NgxIuguValidationsService,
+    private IuguService: NgxIuguService,
+    private formBuilder: FormBuilder
+  ) {}
+}
+```
 
-  ngOnInit() {
-    await this.IuguService.initialize();
+#### 3. use the validation function in your form
+
+```ts
+export class FormComponent implements OnInit {
+  //[...Code ...]/
+  async ngOnInit(): Promise<void> {
+    this.creditCard = this.formBuilder.group(
+      {
+        fullName: ["", [Validators.required]],
+        validate: [
+          "",
+          [Validators.required],
+          [this.IuguValidationsService.asyncValidateExpiration],
+        ],
+        cardNumber: [
+          "",
+          [Validators.required],
+          [this.IuguValidationsService.asyncValidateCreditCardNumber],
+        ],
+        securityCode: ["", [Validators.required]],
+      },
+      {
+        validator: this.IuguValidationsService.validateCVV(
+          "cardNumber",
+          "securityCode"
+        ),
+      }
+    );
   }
+  //[...Code ...]/
+}
+```
 
-  submit() {
+#### Validations functions for reactive forms
+
+A classe `NgxIuguValidationsService` nos fornece uma abstração das funções disponibilizadas pela Iugu, com funções que
+podem ser usadas para validação dos campos de um formulário reativo.
+
+##### Functions for validations
+
+All validation functions add an error to the control of the example form
+`form.controls[securityCode].setErrors({ invalidCVV: true });`
+
+| Functions                     | Error name                           | Description                                                                                                                                                             |
+| ----------------------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| asyncValidateCreditCardNumber | invalidNumber                        | Adds an error to control when network credit card number is invalid                                                                                                     |
+| asyncValidateAccountID        | invalidAccountId                     | Adds error when accountId is invalid                                                                                                                                    |
+| validateCVV                   | withoutCreditCardNumber / invalidCVV | The cvv field its validation depends also on the credit card number, so we have 2 possible errors when the cvv is invalid or when the credit card number was not filled |
+| asyncValidateExpiration       | invalidExpiration                    | validates the card expiration field an observation is that the field used in this function must contain the month and year, example `12/33` or `12/2033`                |
+
+The validateCVV function recebe dois parametros sendo eles o nome do control usados para o numero do cartão de credito e para o cvv repectivamentes
+
+#### 4. Make your token Iugu
+
+```ts
+export class FormComponent implements OnInit {
+  //[...Code ...]/
+  async submit(): Promise<void> {
     const creditCard = this.creditCard.getRawValue();
     const [firstName, surName] =
       this.IuguService.Iugu.utils.getFirstLastNameByFullName(
         creditCard.fullName
-    );
-
+      );
     const [cardExpirationMonth, cardExpirationYear] =
       this.IuguService.Iugu.utils.getMonthYearByFullExpiration(
         creditCard.validate
@@ -86,16 +154,7 @@ export class MpPaymentPage implements OnInit {
       surName,
     };
 
-    try {
-      const data = await this.IuguService.createTokenByObject(params);
-      this.modal.open(ModalComponent, {
-        data,
-      });
-    } catch (e) {
-      const { errors } = e;
-      this.snackBar.open(`${Object.keys(errors)[0]} is invalid`, 'Fechar');
-      console.log(e);
-    }
+    const data = await this.IuguService.createTokenByObject(params);
   }
 }
 ```
@@ -107,5 +166,4 @@ Please, open an [issue](https://github.com/PetersonFonsec/ngx-iugu/issues) follo
 ## License
 
 Distributed under the **MIT license**. See [LICENSE](https://github.com/PetersonFonsec/ngx-iugu/blob/master/LICENSE.txt) for more information.
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.1.

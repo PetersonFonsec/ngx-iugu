@@ -8,16 +8,17 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { NgxMaskModule } from 'ngx-mask';
-import { NgxIuguModule } from 'ngx-iugu';
+import { NgxIuguModule } from 'projects/ngx-iugu/src/public-api';
 
 import { FormComponent } from './form.component';
 import { environment } from 'src/environments/environment';
 import { FormRoutingModule } from './form-routing.module';
 import { ModalComponent } from './modal/modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ErrorsPipe } from './pipes/errors/errors.pipe';
 
 @NgModule({
-  declarations: [FormComponent, ModalComponent],
+  declarations: [FormComponent, ModalComponent, ErrorsPipe],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -28,7 +29,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormRoutingModule,
     MatSnackBarModule,
     MatDialogModule,
-    NgxMaskModule.forRoot(),
+    NgxMaskModule.forRoot({
+      validation: true,
+    }),
     NgxIuguModule.footRoot({
       testMode: !environment.production,
     }),

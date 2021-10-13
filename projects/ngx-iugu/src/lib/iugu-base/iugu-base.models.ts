@@ -31,7 +31,7 @@ export interface Iugu {
       cardExpirationMonth: string | number,
       cardExpirationYear: string | number
     ) => boolean;
-    validateExpirationString: () => any;
+    validateExpirationString: (expiration: any) => any;
     validateFirstName: (firstName: string) => boolean;
     validateLastName: (lastName: string) => boolean;
   };
